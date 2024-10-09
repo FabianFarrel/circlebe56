@@ -14,8 +14,8 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: 'http://localhost:5173',  // Frontend URL
-    credentials: true,  // If you are sending cookies
+    origin: 'http://localhost:5173',  
+    credentials: true,  
 }));
 
 app.use('/uploadImage', express.static('uploadImage'));  
