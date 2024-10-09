@@ -17,9 +17,7 @@ app.use(cors({
     credentials: true,  // If you are sending cookies
 }));
 
-// Consider using external storage for static files in production
-app.use('/uploadImage', express.static('uploadImage'));
-
+app.use('/uploadImage', express.static('uploadImage'));  // Consider using an external service for this in production
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument, {
     explorer: true,
     swaggerOptions: {
@@ -28,8 +26,7 @@ app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument, {
     }
 }));
 app.use("/api/v1", routerV1);
-
 app.use(errorMiddleware);
 
-// Export the app for Vercel
+// Do NOT call `app.listen()` here
 export default app;
