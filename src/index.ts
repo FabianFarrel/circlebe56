@@ -25,6 +25,10 @@ app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument, {
     }
 }));
 
+app.get('/', (req, res) => {
+    res.send('Welcome to the API!'); // Respond to GET requests to the root URL
+});
+
 app.use("/api/v1", routerV1);
 app.use(errorMiddleware);
 
