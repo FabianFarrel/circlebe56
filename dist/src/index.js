@@ -10,17 +10,15 @@ const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_output_json_1 = __importDefault(require("../swagger/swagger-output.json"));
 const error_middleware_1 = require("./middlewares/error-middleware");
 const v1_1 = require("./routes/v1");
-//import upload from "./middlewares/uploadImage";
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const port = process.env.PORT || 5000;
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)({
     origin: 'http://localhost:5173', // Frontend URL
     credentials: true, // If you are sending cookies
 }));
-app.use('/uploadImage', express_1.default.static('uploadImage'));
+app.use('/uploadImage', express_1.default.static('uploadImage')); // Consider using an external service for this in production
 app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_output_json_1.default, {
     explorer: true,
     swaggerOptions: {
@@ -30,6 +28,5 @@ app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.defaul
 }));
 app.use("/api/v1", v1_1.routerV1);
 app.use(error_middleware_1.errorMiddleware);
-app.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+// Do NOT call `app.listen()` here
+exports.default = app;
