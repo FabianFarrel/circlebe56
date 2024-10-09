@@ -11,6 +11,8 @@ const prisma = new PrismaClient();
 
 class postController {
     async getAllPost(req: Request, res: Response) {
+        try {
+            
         const posts = await prisma.post.findMany({
             include: {
                 author: {
@@ -28,6 +30,10 @@ class postController {
             timeAgo: formatTimeAgo(new Date(post.createdAt))
         }))
         res.json(postWithTimeAgo)
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({message: (error as unknown as Error).message})
+        }
     }
 
     async getPostByAuthor(req: RequestWithUser, res: Response) {
