@@ -4,18 +4,13 @@
       {
         "src": "src/index.ts",
         "use": "@vercel/node",
-        "config": { "includeFiles": ["dist/*", "swagger/swagger-output.json"] }
+        "config": { "includeFiles": ["dist/*"] }
       }
     ],
     "routes": [
       {
-        "src": "/api/(.*)",
-        "dest": "src/index.ts"
-      },
-      {
-        "src": "/docs",
+        "src": "/(.)",
         "dest": "src/index.ts"
       }
     ]
-  }
-  
+}
