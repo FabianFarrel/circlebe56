@@ -6,7 +6,8 @@
     "build": "npx tsc",
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
-    "swagger": "node ./swagger/swagger.js"
+    "swagger": "node ./swagger/swagger.js",
+    "postinstall": "npx prisma migrate"
   },
   "keywords": [],
   "author": "Fabian Farrel",
