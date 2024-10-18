@@ -1,13 +1,13 @@
 import { PrismaClient } from '@prisma/client';
-import { CustomError } from '../middlewares/error-handle';
 
 const prisma = new PrismaClient();
 
 export const searchService = async (query: string, userId: number) => {
     if (!query) {
-        throw new CustomError("Query is required", 400);
+        return []; 
     }
-    return await prisma.user.findMany({
+
+    const users = await prisma.user.findMany({
         where: {
             AND: [
                 { id: { not: userId } },
@@ -18,12 +18,15 @@ export const searchService = async (query: string, userId: number) => {
                     ]
                 }
             ]
-        }, select: {
+        },
+        select: {
             id: true,
             email: true,
             fullName: true,
             userName: true,
             image: true
         }
-    })
-}
+    });
+
+    return users;
+};

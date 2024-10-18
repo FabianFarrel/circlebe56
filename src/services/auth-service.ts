@@ -84,28 +84,23 @@ export const forgotPassword = async (data: ForgotPasswordDTO) => {
         await ResetPassword(email, token);
     } catch (error) {
         console.error("Error during forgotPassword service:", error);
-        // Provide a detailed error message in development mode
         if (process.env.NODE_ENV === 'development') {
-            throw new CustomError(`Failed to process request: ${(error as Error).message}`, 500); // Expose full error in development
+            throw new CustomError(`Failed to process request: ${(error as Error).message}`, 500); 
         } else {
-            throw new CustomError("Error processing forgot password request", 500); // Generic error message in production
+            throw new CustomError("Error processing forgot password request", 500); 
         }
     }
 };
 
-
-
-// Helper function to hash password
 const hashPassword = async (password: string): Promise<string> => {
     const salt = 10;
     return await bcrypt.hash(password, salt);
 };
 
-// Reset Password Service
+
 export const resetPassword = async (data: ResetPasswordDTO) => {
     const { token, newPassword } = data;
 
-    // Validate token and catch errors
     let decoded;
     try {
         decoded = jwt.verify(token, jwtSecret) as { userId: number };
@@ -113,7 +108,6 @@ export const resetPassword = async (data: ResetPasswordDTO) => {
         throw new CustomError("Invalid or expired token", 403);
     }
 
-    // Hash new password
     const hashedPassword = await hashPassword(newPassword);
 
     await prisma.user.update({
