@@ -7,7 +7,7 @@ export const searchController = async (req: RequestWithUser, res: Response) => {
     const { query } = req.query as { query?: string }; 
 
     if (!query) {
-        return res.status(400).json({ message: "Query is required" });
+        return [];
     }
 
     try {
