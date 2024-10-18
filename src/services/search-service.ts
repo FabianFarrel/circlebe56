@@ -10,11 +10,11 @@ export const searchService = async (query: string, userId: number) => {
     const users = await prisma.user.findMany({
         where: {
             AND: [
-                { id: { not: userId } },
+                { id: { not: userId } }, 
                 {
                     OR: [
-                        { fullName: { contains: query, mode: 'insensitive' } },
-                        { userName: { contains: query, mode: 'insensitive' } },
+                        { fullName: { contains: query, mode: 'insensitive' } }, 
+                        { userName: { contains: query, mode: 'insensitive' } }, 
                     ]
                 }
             ]
@@ -30,3 +30,4 @@ export const searchService = async (query: string, userId: number) => {
 
     return users;
 };
+
